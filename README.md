@@ -58,6 +58,13 @@
   - 用途：为 Django/DRF + Vue + MySQL（可选 Redis/Nginx）生成/维护 compose 配置（profiles、healthcheck、.env）
   - 位置：`.claude/agents/docker-compose-orchestrator.md`
 
+- spec-driven-planner（Spec 驱动规划）
+  - 用途：将模糊需求转换为可实施的规范文档（Overview、Goals、User Stories、Domain Model、API/UI/Backend/Data/Security/Perf/Deploy 等）；带反思门控（清晰度/完整性/可行性/接口）
+  - 维护模式：支持 **Debug/Bugfix/Improvements**，包含故障复现与分级、根因分析、补丁计划（影响范围/接口/迁移/测试）、风险与回滚方案，并为下游代理生成对应的执行提示
+  - 下游联动：为 `django-drf-architect`、`vue-frontend-integrator`、`openapi-contract-sync`、`docker-compose-orchestrator` 输出定制化提示（会展示给用户），在信息不足时给出对齐问题清单
+  - 位置：`.claude/agents/spec-driven-planner.md`
+  - 工作流：Reflection → 生成规范（目标/非目标、角色、故事、模型、API、UI、后端、数据、部署、风险）→ 下游提示（DRF/Vue/OpenAPI/Compose）或回询用户
+
 ---
 
 ### 🔧 MCP 服务器
