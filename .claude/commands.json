@@ -1,0 +1,150 @@
+{
+  "$schema": "https://claude.com/schemas/commands-v1.json",
+  "description": "Agent orchestration reference for TME Automated project. Slash commands are defined in .claude/commands/*.md files.",
+
+  "commands": {
+    "plan": {
+      "file": ".claude/commands/plan.md",
+      "description": "Convert user prompt into actionable spec using doc-analysis and code-searcher agents",
+      "agents_involved": ["doc-analysis", "code-searcher", "memory-bank-synchronizer"],
+      "when_to_use": "Starting new features, planning major changes, or need structured requirements"
+    },
+    "develop": {
+      "file": ".claude/commands/develop.md",
+      "description": "Execute development based on approved specification",
+      "agents_involved": ["fullstack-dev", "memory-bank-synchronizer"],
+      "when_to_use": "Have an approved spec and ready to implement"
+    },
+    "debug": {
+      "file": ".claude/commands/debug.md",
+      "description": "Debug and fix issues with systematic approach",
+      "agents_involved": ["doc-analysis", "code-searcher", "fullstack-dev", "memory-bank-synchronizer"],
+      "when_to_use": "Fixing bugs, addressing regressions, or investigating issues"
+    },
+    "analyze": {
+      "file": ".claude/commands/analyze.md",
+      "description": "Analyze both documentation and code for comprehensive understanding",
+      "agents_involved": ["doc-analysis", "code-searcher", "memory-bank-synchronizer"],
+      "when_to_use": "Understanding systems, extracting API specs, finding undocumented features"
+    },
+    "quick-dev": {
+      "file": ".claude/commands/quick-dev.md",
+      "description": "Fast-track simple changes without full spec process",
+      "agents_involved": ["memory-bank-synchronizer"],
+      "when_to_use": "Small, straightforward changes that don't need full planning"
+    }
+  },
+
+  "agent_roles": {
+    "spec-driven-planner": {
+      "file": ".claude/agents/spec-driven-planner.md",
+      "primary_function": "Convert ambiguous requests into clear specs with reflection",
+      "capabilities": [
+        "Requirements analysis and clarification",
+        "Spec generation with downstream prompts",
+        "Triage for bugs and maintenance",
+        "Patch planning for fixes"
+      ],
+      "when_to_invoke": "Need structured planning, spec generation, or systematic triage"
+    },
+    "doc-analysis": {
+      "file": ".claude/agents/doc-analysis.md",
+      "primary_function": "Analyze ./project_docs for architectural context and design rationale",
+      "capabilities": [
+        "Extract insights from documentation",
+        "Provide design rationale and 'why' behind decisions",
+        "Identify documentation gaps",
+        "Generate knowledge maps"
+      ],
+      "focus": "./project_docs directory (6 core files)",
+      "when_to_invoke": "Need architectural context, design decisions, or documentation insights"
+    },
+    "code-searcher": {
+      "file": ".claude/agents/code-searcher.md",
+      "primary_function": "Comprehensive codebase analysis and forensic examination",
+      "capabilities": [
+        "Locate functions, classes, and modules with line numbers",
+        "Pattern detection and architectural consistency verification",
+        "Security vulnerability analysis",
+        "Fill documentation gaps with actual implementation",
+        "Chain of Draft mode for ultra-concise analysis"
+      ],
+      "focus": "Source code layer - actual implementation",
+      "when_to_invoke": "Need to find code, understand implementation, or verify docs against reality"
+    },
+    "fullstack-dev": {
+      "file": ".claude/agents/fullstack-dev.md",
+      "primary_function": "End-to-end implementation for Django/DRF + Vue 3 + MySQL stack",
+      "capabilities": [
+        "Backend: DRF serializers, viewsets, auth, permissions",
+        "Frontend: Vue 3, TypeScript, Pinia, axios",
+        "Data: MySQL schema, migrations, indexes",
+        "Ops: Docker Compose, env configuration",
+        "OpenAPI contract and type generation"
+      ],
+      "stack": "Django/DRF + Vue 3 + MySQL + Docker Compose",
+      "when_to_invoke": "Ready to implement features with clear requirements"
+    },
+    "memory-bank-synchronizer": {
+      "file": ".claude/agents/memory-bank-synchronizer.md",
+      "primary_function": "Maintain consistency between memory bank files and actual codebase",
+      "capabilities": [
+        "Synchronize patterns with implementation reality",
+        "Update architecture decisions and outcomes",
+        "Track implementation status and progress",
+        "Preserve strategic planning and historical context",
+        "Maintain cross-references and links"
+      ],
+      "focus": "CLAUDE.md and CLAUDE-*.md files",
+      "when_to_invoke": "After significant work, when memory bank is outdated, or proactively to maintain accuracy"
+    }
+  },
+
+  "memory_bank_system": {
+    "description": "Structured context files for session continuity and institutional knowledge",
+    "files": {
+      "CLAUDE.md": "Main guidance file for AI - read automatically by Claude Code",
+      "CLAUDE-activeContext.md": "Current session state, goals, and progress",
+      "CLAUDE-patterns.md": "Established code patterns and conventions",
+      "CLAUDE-decisions.md": "Architecture decisions and rationale with history",
+      "CLAUDE-troubleshooting.md": "Common issues and proven solutions",
+      "CLAUDE-config-variables.md": "Configuration variables and environment reference",
+      "CLAUDE-temp.md": "Temporary scratch pad (only read when explicitly referenced)"
+    },
+    "usage": "Always check activeContext first for current work. Reference others as needed. Never delete these files from commits."
+  },
+
+  "two_layer_analysis": {
+    "description": "Dual-layer approach for comprehensive system understanding",
+    "documentation_layer": {
+      "agent": "doc-analysis",
+      "focus": "./project_docs directory",
+      "provides": ["Architectural context", "Design rationale", "Why behind decisions", "What's documented"]
+    },
+    "code_layer": {
+      "agent": "code-searcher",
+      "focus": "Source code implementation",
+      "provides": ["How things work", "Implementation details", "Actual behavior", "Documentation gap filling"]
+    },
+    "collaboration_pattern": "User Question → doc-analysis (context) → code-searcher (implementation) → Complete Answer"
+  },
+
+  "usage_guidelines": {
+    "for_main_agent": [
+      "Read CLAUDE.md and CLAUDE-activeContext.md at session start",
+      "Use doc-analysis for architectural context and design decisions",
+      "Use code-searcher for finding implementations and understanding code",
+      "Use fullstack-dev for actual implementation work",
+      "Use memory-bank-synchronizer after significant changes",
+      "Invoke agents with complete context and clear instructions",
+      "Agents run autonomously and return final reports - no back-and-forth"
+    ],
+    "command_selection": {
+      "Build new feature": "/plan then /develop",
+      "Bug or issue": "/debug",
+      "Understand system": "/analyze",
+      "Small quick change": "/quick-dev",
+      "Just ask naturally": "Main agent decides best approach"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 ---
-name: spec-driven-agent
-description: Convert ambiguous user requests into clear, spec-driven documents and optimized prompts. Uses reflection to decide whether to proceed or collect more info. Supports debug/bugfix/improvements and emits downstream prompts for fullstack-dev, debugging-agent, and tool agents.
+name: spec-driven-planner
+description: Convert ambiguous requests into clear specifications with systematic reflection. Analyzes requirements for completeness, asks clarifying questions when needed, generates comprehensive specs with downstream implementation plans. Handles both new features and maintenance tasks (bugs/fixes/improvements).
 model: sonnet
 color: violet
 ---

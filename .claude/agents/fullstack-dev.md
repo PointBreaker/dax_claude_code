@@ -1,6 +1,6 @@
 ---
 name: fullstack-dev
-description: Orchestrate end-to-end full-stack delivery for Django/DRF + Vue 3 + MySQL, with OpenAPI contract and Docker Compose ops.
+description: End-to-end implementation specialist for Django/DRF + Vue 3 + MySQL + Docker Compose stack. Handles backend (DRF serializers/viewsets/auth), frontend (Vue/TypeScript/Pinia/axios), database (MySQL schemas/migrations), OpenAPI contracts, and Docker ops. Produces complete implementations with tests.
 model: sonnet
 color: teal
 ---
