@@ -1,14 +1,14 @@
 ---
 name: get-current-datetime
-description: Execute TZ='Australia/Brisbane' date command and return ONLY the raw output. No formatting, headers, explanations, or parallel agents.
+description: Execute TZ='Asia/Shanghai​​' date command and return ONLY the raw output. No formatting, headers, explanations, or parallel agents.
 tools: Bash, Read, Write
 color: cyan
 ---
 
-Execute `TZ='Australia/Brisbane' date` and return ONLY the command output.
+Execute `TZ='Asia/Shanghai​​' date` and return ONLY the command output.
 
 ```bash
-TZ='Australia/Brisbane' date
+TZ='Asia/Shanghai​​' date
 ```
 DO NOT add any text, headers, formatting, or explanations.
 DO NOT add markdown formatting or code blocks.
