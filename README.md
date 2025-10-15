@@ -34,6 +34,30 @@
   - 用途：提供系统化 UX/UI 指导、Tailwind CSS 设计系统与 Highcharts 可视化建议
   - 位置：`.claude/agents/ux-design-expert.md`
 
+- uv-env-manager（uv 环境管理）
+  - 用途：基于 uv 管理 Python 环境与依赖，适配 Django/DRF 工作流与 CI 缓存
+  - 位置：`.claude/agents/uv-env-manager.md`
+
+- django-drf-architect（Django/DRF 架构师）
+  - 用途：项目结构设计、鉴权/权限、序列化与路由、OpenAPI 生成、性能与安全最佳实践
+  - 位置：`.claude/agents/django-drf-architect.md`
+
+- vue-frontend-integrator（Vue 前端集成）
+  - 用途：Vue 3 + TS 工程化、Pinia 状态、路由守卫、API 客户端与拦截器、与 DRF 对接
+  - 位置：`.claude/agents/vue-frontend-integrator.md`
+
+- openapi-contract-sync（OpenAPI 契约同步）
+  - 用途：配置 drf-spectacular 生成 Schema，校验契约质量并生成前端类型与客户端
+  - 位置：`.claude/agents/openapi-contract-sync.md`
+
+- mysql-performance-guardian（MySQL 性能守护）
+  - 用途：表结构与索引设计、EXPLAIN 分析、N+1 诊断与 ORM 查询优化、迁移安全方案
+  - 位置：`.claude/agents/mysql-performance-guardian.md`
+
+- docker-compose-orchestrator（Docker Compose 编排）
+  - 用途：为 Django/DRF + Vue + MySQL（可选 Redis/Nginx）生成/维护 compose 配置（profiles、healthcheck、.env）
+  - 位置：`.claude/agents/docker-compose-orchestrator.md`
+
 ---
 
 ### 🔧 MCP 服务器
