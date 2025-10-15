@@ -39,6 +39,10 @@
   - 维护模式：支持 **Debug/Bugfix/Improvements**，包含故障复现与分级、根因分析、补丁计划、测试与回滚方案，并为下游代理生成对应的执行提示
   - 位置：`.claude/agents/spec-driven-planner.md`
 
+- doc-analysis（文档分析）
+  - 用途：扫描 `docs/` 文件夹，提取需求、API、数据模型与约束，生成可追溯的知识图谱与任务提示，辅助 `fullstack-dev`、`openapi-contract-sync`、`debugging-agent`、`spec-driven-planner` 等实现
+  - 位置：`.claude/agents/doc-analysis.md`
+
 - fullstack-dev（全栈开发）
   - 用途：统筹 Django/DRF + Vue 3 + MySQL 的端到端交付，含 OpenAPI 契约与 Docker Compose 运维
   - 位置：`.claude/agents/fullstack-dev.md`

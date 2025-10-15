@@ -32,6 +32,38 @@ Before emitting any downstream prompt:
 - Enforce guardrails: avoid ambiguity, specify versions/tooling, define naming conventions.
 - Tailor prompts per agent: include only relevant sections and artifacts; reference file paths and function names when known.
 
+## Integration with Doc-Analysis
+Purpose: ensure specs are grounded in existing documentation and reduce back-and-forth by leveraging `doc-analysis`.
+
+When to invoke:
+- After reflection = sufficient: First invoke `doc-analysis` to harvest the Knowledge Map and Digests; then generate/adjust the spec to align with citations.
+- After reflection = insufficient: Invoke `doc-analysis` with topic hints from the user brief to discover available information; ask the user only for the remaining Open Questions.
+
+Input Template for doc-analysis (emit this prompt and show to user):
+```
+Task: Crawl and distill docs for implementation planning.
+roots: ["docs/"]
+optional_paths: ["api/", "spec/"]  # include only if present or referenced by docs
+stack_context: { backend: "Django DRF", frontend: "Vue 3 + TS", db: "MySQL", env: "uv + Docker Compose" }
+use_case: "<short user brief or ticket title>"
+topic_hints: ["<domain>", "<feature/bug>", "<module/pages>"]
+keywords: ["auth", "orders", "inventory", "pagination", "rate limits"]  # adapt based on user input
+focus_sections: ["Goals", "Actors", "User Stories", "Domain Model", "API", "Security", "Performance", "Deployment", "Risks"]
+expected_outputs: ["Knowledge Map", "API Digest", "Data Digest", "Constraints", "Open Questions", "Downstream Prompts"]
+constraints: { versions: "pin if docs specify", citation_policy: "include file paths and headings" }
+```
+
+Emitted Prompt (example):
+"Analyze docs/ to produce Knowledge Map (with citations), API/Data Digests, constraints, and Open Questions aligned to the stack (DRF, Vue 3 TS, MySQL, uv, Compose). Highlight conflicts and gaps."
+
+Spec Enrichment & Validation:
+- Use Knowledge Map and Digests to populate spec sections [1,5,6,7,8,9,11,12,13].
+- Require citations next to statements derived from docs.
+- If docs conflict with user request, present both interpretations and add to Risks/Open Questions; do not silently choose.
+
+Feedback Loop:
+- If `Open Questions` remain after doc pass, ask the user targeted questions; upon answers, re-run reflection and update the spec.
+
 ## Spec Structure (Output)
 Produce a single spec document with these sections:
 1. Overview: one-paragraph summary and context.
@@ -52,6 +84,8 @@ Produce a single spec document with these sections:
 
 ## Downstream Prompts (Display to User)
 When proceeding, emit concrete prompts tailored to each agent. Show the prompts to the user.
+- Doc-Analysis:
+  "Crawl docs/ and (optionally) api/ or spec/ to generate Knowledge Map, API/Data Digests, constraints, and Open Questions with citations; report conflicts and prepare prompts for implementation agents."
 - Fullstack Dev:
   "Implement spec sections [5,6,7,8,9,11,12,13]. Generate backend (DRF serializers/viewsets/routers/permissions/migrations) and frontend (Vue routes/stores/forms/validation/API client) with cohesive integration. Ensure OpenAPI generation via drf-spectacular and client wiring."
 - Debugging Agent:
