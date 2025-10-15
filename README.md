@@ -14,56 +14,38 @@
 
 ### 🤖 子代理（Sub-Agents）
 
-- memory-bank-synchronizer（记忆库同步器）
-  - 用途：同步记忆库文档与代码库实现，确保架构/模式/规范与实现一致
-  - 位置：`.claude/agents/memory-bank-synchronizer.md`
-  - 职责：模式文档同步、架构决策更新、技术规范对齐、实现状态跟踪、示例新鲜度验证、交叉引用校验
-
 - code-searcher（代码搜索器）
   - 用途：高效定位函数/类/逻辑与集成点；支持标准模式与 CoD（草稿链）极简模式
   - 位置：`.claude/agents/code-searcher.md`
-  - 用法示例：
-    - 标准模式：查找并分析“支付处理”相关代码
-    - CoD 模式：使用 CoD 进行极简搜索提示（更低令牌）
 
 - get-current-datetime（获取当前日期时间）
   - 用途：返回澳大利亚布里斯班时区（GMT+10）的原始 `date` 输出，支持多格式
   - 位置：`.claude/agents/get-current-datetime.md`
 
-- ux-design-expert（UX 设计专家）
-  - 用途：提供系统化 UX/UI 指导、Tailwind CSS 设计系统与 Highcharts 可视化建议
-  - 位置：`.claude/agents/ux-design-expert.md`
-
 - uv-env-manager（uv 环境管理）
   - 用途：基于 uv 管理 Python 环境与依赖，适配 Django/DRF 工作流与 CI 缓存
   - 位置：`.claude/agents/uv-env-manager.md`
-
-- django-drf-architect（Django/DRF 架构师）
-  - 用途：项目结构设计、鉴权/权限、序列化与路由、OpenAPI 生成、性能与安全最佳实践
-  - 位置：`.claude/agents/django-drf-architect.md`
-
-- vue-frontend-integrator（Vue 前端集成）
-  - 用途：Vue 3 + TS 工程化、Pinia 状态、路由守卫、API 客户端与拦截器、与 DRF 对接
-  - 位置：`.claude/agents/vue-frontend-integrator.md`
 
 - openapi-contract-sync（OpenAPI 契约同步）
   - 用途：配置 drf-spectacular 生成 Schema，校验契约质量并生成前端类型与客户端
   - 位置：`.claude/agents/openapi-contract-sync.md`
 
-- mysql-performance-guardian（MySQL 性能守护）
-  - 用途：表结构与索引设计、EXPLAIN 分析、N+1 诊断与 ORM 查询优化、迁移安全方案
-  - 位置：`.claude/agents/mysql-performance-guardian.md`
-
 - docker-compose-orchestrator（Docker Compose 编排）
-  - 用途：为 Django/DRF + Vue + MySQL（可选 Redis/Nginx）生成/维护 compose 配置（profiles、healthcheck、.env）
+  - 用途：为后端/前端/数据库生成并维护 compose 配置（profiles、healthcheck、.env）
   - 位置：`.claude/agents/docker-compose-orchestrator.md`
 
-- spec-driven-planner（Spec 驱动规划）
+- spec-driven-planner（Prompt 优化 / 规格驱动）
   - 用途：将模糊需求转换为可实施的规范文档（Overview、Goals、User Stories、Domain Model、API/UI/Backend/Data/Security/Perf/Deploy 等）；带反思门控（清晰度/完整性/可行性/接口）
-  - 维护模式：支持 **Debug/Bugfix/Improvements**，包含故障复现与分级、根因分析、补丁计划（影响范围/接口/迁移/测试）、风险与回滚方案，并为下游代理生成对应的执行提示
-  - 下游联动：为 `django-drf-architect`、`vue-frontend-integrator`、`openapi-contract-sync`、`docker-compose-orchestrator` 输出定制化提示（会展示给用户），在信息不足时给出对齐问题清单
+  - 维护模式：支持 **Debug/Bugfix/Improvements**，包含故障复现与分级、根因分析、补丁计划、测试与回滚方案，并为下游代理生成对应的执行提示
   - 位置：`.claude/agents/spec-driven-planner.md`
-  - 工作流：Reflection → 生成规范（目标/非目标、角色、故事、模型、API、UI、后端、数据、部署、风险）→ 下游提示（DRF/Vue/OpenAPI/Compose）或回询用户
+
+- fullstack-dev（全栈开发）
+  - 用途：统筹 Django/DRF + Vue 3 + MySQL 的端到端交付，含 OpenAPI 契约与 Docker Compose 运维
+  - 位置：`.claude/agents/fullstack-dev.md`
+
+- debugging-agent（调试/修复）
+  - 用途：复现问题、根因分析、补丁计划与测试方案，协调后端/前端/契约/运维的一致性修复
+  - 位置：`.claude/agents/debugging-agent.md`
 
 ---
 
